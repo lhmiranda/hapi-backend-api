@@ -1,2 +1,5 @@
 # hapi-backend-api
-Backend API example application featuring REST endpoints, basic authentication (cookie) and authorization (roles) for Node.js / Hapi
+Backend API example application featuring:
+* REST endpoints 
+* Basic authentication (cookie) 
+* Authorization (roles)
