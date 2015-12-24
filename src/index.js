@@ -1,5 +1,7 @@
 var Hapi = require('hapi'),
-    dogwater = require('dogwater');
+    dogwater = require('dogwater'),
+    GoodWinston = require('good-winston'),
+    winston = require('winston');
 
 var server = new Hapi.Server();
 server.connection({ port: 1337, host: 'localhost' });
@@ -24,16 +26,45 @@ var dogwaterOptions = {
     ],
 };
 
+var logger = new (winston.Logger)({
+    transports: [
+        new (winston.transports.Console)({
+            colorize: true
+        }),
+        new (winston.transports.File)({
+            name: 'info-file',
+            filename: './logs/info.log',
+            level: 'info'
+        }),
+        new (winston.transports.File)({
+            name: 'error-file',
+            filename: './logs/error.log',
+            level: ['error', 'warn']
+        })
+    ],
+    exceptionHandlers: [
+        new (winston.transports.File)({
+            name: 'exceptions-file',
+            filename: './logs/exceptions.log'
+        })
+    ]
+});
+
 server.register([
     {
         register: require('blipp')
     }, {
         register: require("good"),
         options: {
-            reporters: [{
-                reporter: require('good-console'),
-                events: { ops: '*', request: '*', log: '*', response: '*', 'error': '*' }
-            }]
+            reporters: [
+                new GoodWinston({
+                    ops: '*',
+                    request: '*',
+                    response: '*',
+                    log: '*',
+                    error: '*'
+                }, logger)
+            ]
         }
     }, {
         register: dogwater,
