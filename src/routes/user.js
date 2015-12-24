@@ -7,7 +7,7 @@ module.exports = [
         method: 'GET',
         config: {
             auth: {
-                strategy: 'base',
+                strategy: 'session',
                 scope: ['user', 'operator', 'admin']
             },
             handler: {
@@ -20,7 +20,7 @@ module.exports = [
         method: 'GET',
         config: {
             auth: {
-                strategy: 'base',
+                strategy: 'session',
                 scope: ['operator', 'admin']
             },
             handler: {
@@ -33,7 +33,7 @@ module.exports = [
         method: 'POST',
         config: {
             auth: {
-                strategy: 'base',
+                strategy: 'session',
                 scope: 'admin'
             },
             handler: {
@@ -46,7 +46,7 @@ module.exports = [
         method: ['PATCH', 'POST'],
         config: {
             auth: {
-                strategy: 'base',
+                strategy: 'session',
                 scope: 'admin'
             },
             handler: {
@@ -59,7 +59,7 @@ module.exports = [
         method: 'DELETE',
         config: {
             auth: {
-                strategy: 'base',
+                strategy: 'session',
                 scope: 'admin'
             },
             handler: {

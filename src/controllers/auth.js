@@ -35,7 +35,7 @@ exports.login = {
 
 exports.logout = {
     auth: {
-        strategy: 'base',
+        strategy: 'session',
         scope: ['user', 'operator', 'admin']
     },
     handler: function (request, reply) {

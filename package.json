@@ -1,7 +1,7 @@
 {
   "name": "hapi-restapi-boilerplate",
   "version": "0.1.0",
-  "description": "Backend API example featuring REST endpoints, basic authentication (cookie) and authorization (roles) for Node.js / Hapi",
+  "description": "Backend API example application in Node.js + Hapi.js",
   "main": "index.js",
   "dependencies": {
     "bcryptjs": "^2.3.0",
@@ -9,6 +9,8 @@
     "blipp": "^2.2.1",
     "boom": "^3.1.0",
     "dogwater": "^0.4.7",
+    "good": "^6.4.0",
+    "good-console": "^5.2.0",
     "hapi": "^8.8.0",
     "hapi-auth-cookie": "^3.1.0",
     "joi": "^7.0.1",

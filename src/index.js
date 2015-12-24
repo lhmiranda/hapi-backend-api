@@ -1,6 +1,6 @@
 var Hapi = require('hapi'),
     dogwater = require('dogwater');
-    
+
 var server = new Hapi.Server();
 server.connection({ port: 1337, host: 'localhost' });
 
@@ -28,6 +28,14 @@ server.register([
     {
         register: require('blipp')
     }, {
+        register: require("good"),
+        options: {
+            reporters: [{
+                reporter: require('good-console'),
+                events: { ops: '*', request: '*', log: '*', response: '*', 'error': '*' }
+            }]
+        }
+    }, {
         register: dogwater,
         options: dogwaterOptions
     }, {
@@ -41,11 +49,13 @@ server.register([
         return console.log(err);
     }
 
-    server.auth.strategy('base', 'cookie', {
-        password: 'IAmWhatIAmAndThatsAllIAm', // salt
+    server.auth.strategy('session', 'cookie', {
+        password: 'DoOrDoNotTheresNoTry', // key
         cookie: 'api-cookie', // cookie name
-//        redirectTo: '/', // redirect on unauthorized
-        isSecure: false // only accept secure connections?
+        ttl: 20 * 60 * 1000, // sets the cookie expiration time in milliseconds
+        clearInvalid: true, // cookie that fails validation will be marked as expired in the response and cleared
+        keepAlive: true, // automatically sets the session cookie after validation to extend the current session for a new ttl duration
+        isSecure: false // enable to only accept secure connections (SSL)
     });
 
     server.route(require('./routes/user'));
